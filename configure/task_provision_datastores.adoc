@@ -1,0 +1,234 @@
+---
+permalink: configure/task_provision_datastores.html 
+sidebar: sidebar 
+keywords:  
+summary: 配置数据存储库会为虚拟机及其虚拟机磁盘（ VMDK\ ）创建一个逻辑容器。您可以配置数据存储库，然后将数据存储库连接到单个主机，集群中的所有主机或数据中心中的所有主机。 
+---
+= 配置传统数据存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+配置数据存储库会为虚拟机及其虚拟机磁盘（ VMDK ）创建一个逻辑容器。您可以配置数据存储库，然后将数据存储库连接到单个主机，集群中的所有主机或数据中心中的所有主机。
+
+* 您需要的内容 *
+
+* 要在直接连接到ONTAP工具的SVM上配置数据存储库、必须事先使用具有适当权限的用户帐户(而不是默认vsadmin用户帐户或vsadmin角色)将SVM添加到ONTAP工具中。
++
+您也可以通过添加集群来配置数据存储库。
+
+* 您必须确保在 kaminoprefs.xml 中输入 ESXi 主机连接到的所有网络的子网详细信息。
++
+请参见 " 在不同子网之间启用数据存储库挂载 " 。
+
+* 如果您使用 NFS 或 iSCSI ，并且 ESXi 主机和存储系统的子网不同，则 kaminoprefs 首选项文件中的 NFS 或 iSCSI 设置必须包括 ESXi 主机子网掩码。
++
+此首选项文件也适用于创建 VVOL 数据存储库。有关详细信息、请参见_在不同子网中启用数据存储库挂载_和_配置ONTAP工具首选项文件_。
+
+* 如果已启用 VASA Provider ，并且要为 NFS 数据存储库或 VMFS 数据存储库指定存储功能配置文件，则必须已创建一个或多个存储功能配置文件。
+* 要创建 NFSv4.1 数据存储库，必须已在 SVM 级别启用 NFSv4.1 。
+
+
+使用 * 配置数据存储库 * 选项可以为数据存储库指定存储功能配置文件。存储功能配置文件有助于指定一致的服务级别目标（ Service Level Objective ， SLO ）并简化配置过程。只有在启用了 VASA Provider 的情况下，才能指定存储功能配置文件。适用于 VMware vSphere 的 ONTAP 工具支持以下协议：
+
+* NFSv3和NFSv4.1
+* VMFS5和VMFS6
+* 从vSphere 8.0版开始、支持NVMe/FC协议。
+
+
+ONTAP工具可以在NFS卷或LUN上创建数据存储库：
+
+* 对于NFS数据存储库、ONTAP工具会在存储系统上创建NFS卷、然后更新导出策略。
+* 对于VMFS数据存储库、ONTAP工具会创建一个新卷(或者如果选择了相应选项、则会使用现有卷)、然后创建一个LUN和一个igrou。
+
+
+[NOTE]
+====
+* 如果在运行 ONTAP 9.8 及更高版本的 ASA 和经批准的 AFF 系统中使用 VMFS5 和 VMFS6 数据存储库，则 ONTAP 工具支持将其配置为最大 VMFS LUN 和 64 TB 的卷大小。
++
+在其他平台上，支持的最大 LUN 大小为 16 TB 。
+
+* VMware 不支持对数据存储库集群使用 NFSv4.1 。
+
+
+====
+* 对于Kerberos身份验证、您需要满足以下要求：
++
+** 使用Active Directory (AD)的Windows计算机
+** 域名服务器(DNS)
+** 密钥分发中心(KDC)
+** 配置了Kerberos的ONTAP 存储系统(集群)
+** 配置了Kerberos的ESXi主机
+
+
+
+
+如果在配置期间未指定存储功能配置文件，您可以稍后使用存储映射页面将数据存储库映射到存储功能配置文件。您可以对 FlexGroup 支持的数据存储库上配置的虚拟机的数据 VMDK 文件应用存储服务质量设置，吞吐量上限（最大 IOPS ）和吞吐量下限（最小 IOPS ）。可以通过右键单击数据存储库在数据存储库级别或单个虚拟机级别应用 QoS 设置。右键单击选项仅适用于由 FlexGroup 数据存储库提供支持的数据存储库或虚拟机。将 QoS 应用于数据存储库后，任何已存在的数据存储库或虚拟机 QoS 设置将被覆盖。无法在数据存储库级别或虚拟机级别为直接 SVM 上配置的数据存储库应用 QoS 设置，因为 ONTAP 在 SVM 管理级别不支持 QoS 。
+
+* 步骤 *
+
+. 您可以使用以下方法之一访问数据存储库配置向导：
++
+|===
+
+
+| * 如果选择 "from..." | * 执行以下操作 ...* 
+
+
+ a| 
+vSphere Client 主页
+ a| 
+.. 单击 * 主机和集群 * 。
+.. 在导航窗格中，选择要配置数据存储库的数据中心。
+.. 要指定要挂载数据存储库的主机，请参见下一步。
+
+
+
+
+ a| 
+ONTAP 工具主页
+ a| 
+.. 单击 * 概述 * 。
+.. 单击 * 入门 * 选项卡。
+.. 单击 * 配置 * 按钮。
+.. 单击 * 浏览 * 以选择要按下一步配置数据存储库的目标。
+
+
+|===
+. 指定要挂载数据存储库的主机。
++
+|===
+
+
+| * 使数据存储库可供使用 ...* | * 执行此操作 ...* 
+
+
+ a| 
+数据中心中的所有主机
+ a| 
+右键单击某个数据中心，然后选择 * NetApp ONTAP Tools* > * 配置数据存储库 * 。
+
+
+
+ a| 
+集群中的所有主机
+ a| 
+右键单击主机集群，然后选择 * NetApp ONTAP Tools* > * 配置数据存储库 * 。
+
+
+
+ a| 
+一台主机
+ a| 
+右键单击某个主机，然后选择 * NetApp ONTAP tools* > * 配置数据存储库 * 。
+
+|===
+. 填写新建数据存储库对话框中的字段以创建数据存储库。
++
+对话框中的大多数字段都是不言自明的。下表介绍了一些可能需要指导的字段。
+
++
+|===
+
+
+| * 第节 * | * 问题描述 * 
+
+
+ a| 
+常规
+ a| 
+" 新建数据存储库配置 " 对话框的 " 常规 " 部分提供了用于输入新数据存储库的目标，名称，大小，类型和协议的选项。
+
+您可以选择*NFS*、*vmfs*或*vols*类型来配置数据存储库。
+如果选择了此类型、则NVMe/FC协议将变为可用。
+
+
+NOTE: ONTAP 9.91P3及更高版本支持NVMe/FC协议。
+
+** NFS：您可以使用NFS3或NFS4.1协议配置NFS数据存储库。
++
+您可以选择
+选项*在中分布数据存储库数据
+ONTAP cluster-*以配置FlexGroup卷
+存储系统。选择此选项
+自动取消选中复选框*使用存储
+用于配置的功能配置文件*。
+
+** VMFS：您可以使用iSCSI或FC/FCoE协议配置文件系统类型为VMFS5或VMFS6的VMFS数据存储库。
++
+
+NOTE: 如果已启用VASA Provider、则为您提供
+可以选择使用存储功能
+配置文件。
+
+
+
+
+
+ a| 
+Kerberos 身份验证
+ a| 
+如果在*常规*页面中选择了NFS 4.1、请选择安全级别。
+
+只有FlexVol才支持Kerberos身份验证。
+
+
+
+ a| 
+存储系统
+ a| 
+如果您在常规部分中选择了相应选项，则可以选择列出的存储功能配置文件之一。
+
+** 如果要配置FlexGroup 数据存储库、则不支持此数据存储库的存储功能配置文件。存储系统和 Storage Virtual Machine 的系统建议值已填充，以便于使用。但是，如果需要，您可以修改这些值。
+** 对于Kerberos身份验证、将列出为Kerberos启用的存储系统。
+
+
+
+
+ a| 
+存储属性
+ a| 
+默认情况下，ONTAP工具会填充*Aggregates *和*Volumes*选项的建议值。您可以根据自己的要求自定义这些值。FlexGroup 数据存储库不支持选择聚合，因为 ONTAP 负责管理聚合选择。
+
+此外，还会填充 * 高级 * 菜单下的 * 空间预留 * 选项，以获得最佳结果。
+
+(可选)您可以在*更改启动程序组名称*字段中指定启动程序组名称。
+
+** 如果尚未创建具有此名称的新启动程序组、则会创建一个此名称的新启动程序组。
+** 协议名称将附加到指定的启动程序组名称。
+** 如果发现选定启动程序具有现有igroup、则此igroup将使用提供的名称进行重命名、并将重复使用。
+** 如果不指定igroup名称、则会使用默认名称创建igroup。
+
+
+
+
+ a| 
+摘要
+ a| 
+您可以查看为新数据存储库指定的参数摘要。
+
+通过字段"`卷模式`"、您可以区分创建的数据存储库类型。"`卷模式` " 可以是 "`FlexVol` " 或 "`FlexGroup` " 。
+
+|===
++
+
+NOTE: 传统数据存储库中的 FlexGroup 不能缩减到低于现有大小，但最大可增长 120% 。在这些 FlexGroup 卷上启用默认快照。
+
+. 在摘要部分中，单击 * 完成 * 。
+
+
+* 相关信息 *
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/Virtual_Storage_Console_for_VMware_vSphere/Datastore_inaccessible_when_volume_status_is_changed_to_offline["当卷状态更改为脱机时，无法访问数据存储库"]
+
+https://docs.netapp.com/us-en/ontap/nfs-admin/ontap-support-kerberos-concept.html["ONTAP 支持 Kerberos"]
+
+https://docs.netapp.com/us-en/ontap/nfs-admin/requirements-configuring-kerberos-concept.html["使用 NFS 配置 Kerberos 的要求"]
+
+https://docs.netapp.com/us-en/ontap-sm-classic/online-help-96-97/concept_kerberos_realm_services.html["使用 System Manager — ONTAP 9.7 及更早版本管理 Kerberos 域服务"]
+
+https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["在数据 LIF 上启用 Kerberos"]
+
+https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-BDCB7500-72EC-4B6B-9574-CFAEAF95AE81.html["为ESXi主机配置Kerberos身份验证"]

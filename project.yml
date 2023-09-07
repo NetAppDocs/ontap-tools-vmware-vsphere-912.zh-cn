@@ -1,0 +1,38 @@
+---
+settings:
+  name: ONTAP tools for VMware vSphere 9.12
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  versions:
+  - name: 适用于 VMware vSphere 的 ONTAP 工具
+    url: "/ontap-tools-vmware-vsphere-912"
+    version-number: '9.12'
+  - name: 适用于 VMware vSphere 的 ONTAP 工具
+    url: "/ontap-tools-vmware-vsphere"
+    version-number: '9.13'
+  - name: 适用于 VMware vSphere 的 ONTAP 工具
+    url: "/ontap-tools-vmware-vsphere-911"
+    version-number: '9.11'
+  - name: 适用于 VMware vSphere 的 ONTAP 工具
+    url: "/ontap-tools-vmware-vsphere-910"
+    version-number: '9.10'
+  - name: 适用于 VMware vSphere 的 ONTAP 工具
+    url: "/ontap-tools-vmware-vsphere-98"
+    version-number: '9.8'
+  langs: zh-cn,us-en,ja-jp,ko-kr,zh-tw,de-de,es-es,fr-fr,it-it
+sidebar:
+  entries:
+  - title: 适用于VMware vSphere 9.12的ONTAP 工具文档
+    url: "/index.html"
+  - title: 发行说明
+    url: "/release_notes.html"
+  - section: concepts
+  - section: deploy
+  - section: configure
+  - section: protect
+  - section: manage
+  - title: 法律声明
+    url: "/legal-notices.html"

@@ -1,0 +1,121 @@
+---
+permalink: configure/reference_esxi_host_values_set_by_vsc_for_vmware_vsphere.html 
+sidebar: sidebar 
+keywords:  
+summary: 您可以使用适用于 VMware vSphere 的 ONTAP 工具在 ESXi 主机上设置超时和其他值，以确保性能最佳并成功进行故障转移。ONTAP 工具设置的值基于 NetApp 内部测试。 
+---
+= 使用 ONTAP 工具设置的 ESXi 主机值
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用适用于 VMware vSphere 的 ONTAP 工具在 ESXi 主机上设置超时和其他值，以确保性能最佳并成功进行故障转移。ONTAP 工具设置的值基于 NetApp 内部测试。
+
+您可以在 ESXi 主机上设置以下值：
+
+
+
+== ESXi 高级配置
+
+* * VMFS3.HardwareAcceleratedLocking *
++
+应将此值设置为 1 。
+
+* *VMFS3.EnableBlockDelete*
++
+应将此值设置为0。
+
+
+
+
+
+== NFS 设置
+
+* * 网络 .TcpipHeapSize*
++
+将此值设置为32。
+
+* * 网络 .TcpipHeapMax*
++
+将此值设置为1024MB。
+
+* * 。 nfs.MaxVolumes*
++
+将此值设置为256。
+
+* *NFS41.MaxVolumes*
++
+将此值设置为256。
+
+* * 。 nfs.MaxQueueDepth*
++
+将此值设置为128或更高、以避免出现队列瓶颈。
+
+* * 。 nfs.HeartbeatMaxFailures *
++
+对于所有NFS配置、请将此值设置为10。
+
+* * 。 nfs.HeartbeatFrequency*
++
+对于所有NFS配置、请将此值设置为12。
+
+* * 。 nfs.HeartbeatTimeout*
++
+对于所有NFS配置、请将此值设置为5。
+
+
+
+
+
+== FC/FCoE 设置
+
+* * 路径选择策略 *
++
+如果使用采用AUA的FC路径、请将此值设置为"`RR`"(轮拨)。
+
++
+对于所有其他配置、请将此值设置为"`FIXed`"。
+
++
+将此值设置为 "`RR` " 有助于在所有主动 / 优化路径之间实现负载平衡。值 "`FIXED` " 用于较早的非 ALUA 配置，有助于防止代理 I/O
+
+* * 磁盘 .QFullSampleSize*
++
+对于所有配置、请将此值设置为32。设置此值有助于防止出现 I/O 错误。
+
+* * 磁盘 .QFullThreshold *
++
+对于所有配置、请将此值设置为8。设置此值有助于防止出现 I/O 错误。
+
+* * Emulex FC HBA 超时 *
++
+使用默认值。
+
+* * QLogic FC HBA 超时 *
++
+使用默认值。
+
+
+
+
+
+== iSCSI 设置
+
+* * 路径选择策略 *
++
+对于所有iSCSI路径、将此值设置为"`RR`"。
+
++
+将此值设置为 "`RR` " 有助于在所有主动 / 优化路径之间实现负载平衡。
+
+* * 磁盘 .QFullSampleSize*
++
+对于所有配置、请将此值设置为32。设置此值有助于防止出现 I/O 错误。
+
+* * 磁盘 .QFullThreshold *
++
+对于所有配置、请将此值设置为8。设置此值有助于防止出现 I/O 错误。
+
+

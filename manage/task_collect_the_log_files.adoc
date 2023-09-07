@@ -1,0 +1,34 @@
+---
+permalink: manage/task_collect_the_log_files.html 
+sidebar: sidebar 
+keywords:  
+summary: '您可以通过ONTAP工具图形用户界面\(gui\}中的选项收集适用于VMware vSphere的ONTAP®工具的日志文件。技术支持可能会要求您收集日志文件以帮助解决问题。' 
+---
+= 收集日志文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以通过ONTAP工具图形用户界面(GUI)中的选项收集适用于VMware vSphere的ONTAP工具的日志文件。技术支持可能会要求您收集日志文件以帮助解决问题。
+
+* 关于此任务 *
+
+如果需要 VASA Provider 日志文件，您可以从 Vendor Provider 控制面板屏幕生成支持包。此页面是 VASA Provider 维护菜单的一部分，可从虚拟设备的控制台访问这些菜单。
+
+`\https://vm_ip:9083`
+
+您可以使用ONTAP工具图形用户界面中的"`Export ONTAP tools for VMware vSphere Logs`"功能收集适用于VMware vSphere的ONTAP工具日志文件。在启用了VASA Provider的情况下收集适用于VMware vSphere的ONTAP工具日志包时、适用于VMware vSphere的ONTAP工具日志包也会包含VP日志。以下步骤说明如何收集适用于VMware vSphere的ONTAP工具日志文件：
+
+* 步骤 *
+
+. 在ONTAP工具主页中，单击*Configuration*>*Export ONTAP tools for VMware vSphere Logs*。
++
+此操作可能需要几分钟时间。
+
+. 出现提示时，将文件保存到本地计算机。
++
+然后，您可以将 _.zip 文件发送给技术支持。
+
+

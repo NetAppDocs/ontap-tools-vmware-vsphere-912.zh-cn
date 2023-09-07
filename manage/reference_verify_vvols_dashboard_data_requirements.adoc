@@ -1,0 +1,31 @@
+---
+permalink: manage/reference_verify_vvols_dashboard_data_requirements.html 
+sidebar: sidebar 
+keywords: vVol dashboard 
+summary: 要显示 VMware 虚拟卷 \ （ vvol\ ）数据存储库和虚拟机的动态详细信息，您必须验证 VVol 信息板的一些重要要求。 
+---
+= VVOL 信息板数据要求
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要显示 VMware 虚拟卷（ VVOL ）数据存储库和虚拟机的动态详细信息，您必须验证 VVOL 信息板的一些重要要求。
+
+下表概述了在 VVol 信息板未显示已配置 SAN VVol 数据存储库和虚拟机的性能指标时应验证的内容。
+
+|===
+| * 注意事项 * | * 问题描述 * 
+
+
+ a| 
+存储系统
+ a| 
+* 您正在使用ONTAP 9.7或更高版本。
+* 您正在为存储系统使用适当的凭据。
+* 您的存储系统处于活动状态且可访问。
+* 选定虚拟机必须至少使用一个 VVOL 数据存储库，并且 I/O 操作正在该虚拟机的磁盘上执行。
+
+
+|===

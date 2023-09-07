@@ -1,0 +1,40 @@
+---
+permalink: concepts/concept_manage_disaster_recovery_setup_using_srm.html 
+sidebar: sidebar 
+keywords:  
+summary: 您可以在 vCenter Server 中创建和管理灾难恢复设置以及 VMware 的 Site Recovery Manager （ SRM ）。 
+---
+= 配置灾难恢复设置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 VMware 的 Site Recovery Manager （ SRM ）在 vCenter Server 中创建和管理灾难恢复设置。
+
+VASA Provider 现在内置了 Storage Replication Adapter （ SRA ）的功能。如果您已在数据中心中配置 VVOL 数据存储库，则要恢复 VVOL 数据存储库，您无需单独安装 SRA 即可进行灾难恢复。在 Site Recovery Manager （ SRM ）中，您必须对受保护站点和恢复站点进行配对。发生站点配对后， SRM 配置的下一部分涉及设置一个阵列对，使 SRM 能够与存储系统进行通信，以发现设备和设备复制。在配置阵列对之前，您必须先在 SRM 中创建一个站点对。
+
+此版本的 ONTAP 工具可让您选择使用同步 SnapMirror 配置进行灾难恢复。
+
+
+NOTE: VMware Site Recovery Manager （ SRM ）不使用 SRA 管理 VVOL 数据存储库的灾难恢复。而是使用 VASA Provider 对 ONTAP 9.7 及更高版本集群上的 VVOL 数据存储库进行复制和故障转移控制。
+
+请参见 link:../protect/task_enable_storage_replication_adapter.html["启用 Storage Replication Adapter"] 部分操作步骤。
+
+.quick_resync功能激活
+您可以启用quick_resync标志以在SRA中执行重新保护和还原操作。这仅适用于具有异步SnapMirror关系的卷所支持的数据存储库。quick_resync标志可加快目标卷的重新同步速度、因为重新同步不会产生存储效率开销
+在传输新数据之前。
+默认情况下、不会启用quick_resync。建议启用quick_resync标志：
+
+* 重新同步源未启用卷效率。
+* 缩短重新同步时间比在网络上保留所有可能的存储效率更重要。
+
+
+按照以下步骤启用quick_resync标志：
+
+.步骤
+. 登录到控制面板、网址为_https：//CLI：9083_、然后单击<IP address> Based命令行界面。
+. 运行命令 `vp updateconfig -key=snapmirror.quick.resync.enabled -value=true`。
+. 运行命令 `vp reloadconfig`。
+

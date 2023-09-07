@@ -1,0 +1,15 @@
+---
+layout: astra 
+sidebar: sidebar 
+permalink: index.html 
+summary: 通过适用于 VMware vSphere 的 ONTAP 工具，您可以在 vCenter Server 环境中配置，管理和保护虚拟数据存储库。 
+---
+= 适用于 VMware vSphere 的 ONTAP 工具文档
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+

@@ -1,0 +1,88 @@
+---
+permalink: concepts/concept_standard_roles_packaged_with_ontap_tools_for_vmware_vsphere.html 
+sidebar: sidebar 
+keywords:  
+summary: '为了简化vCenter Server特权和基于角色的访问控制(RBAC)的使用、ONTAP工具提供了标准ONTAP工具角色、可用于执行关键ONTAP工具任务。此外、还有一个只读角色、可用于查看信息、但不能执行任何任务。' 
+---
+= ONTAP 工具附带的标准角色
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+为了简化vCenter Server特权和基于角色的访问控制(Role-Based Access Control、RBAC)的使用、ONTAP工具提供了标准ONTAP工具角色、可用于执行关键ONTAP工具任务。此外、还有一个只读角色、可用于查看信息、但不能执行任何任务。
+
+标准ONTAP工具角色具有用户执行ONTAP工具任务所需的ONTAP工具专用特权和本机vCenter Server特权。此外，这些角色会进行设置，以便在所有受支持的 vCenter Server 版本中具有所需的特权。
+
+作为管理员，您可以根据需要将这些角色分配给用户。
+
+
+NOTE: 在将ONTAP工具升级到最新版本时、标准角色会自动升级、以使用新版本的工具。
+
+您可以通过单击vSphere Client主页页面上的*角色*来查看ONTAP工具标准角色。
+
+通过ONTAP工具提供的角色、您可以执行以下任务：
+
+|===
+
+
+| * 角色 * | * 问题描述 * 
+
+
+ a| 
+VSC管理员
+ a| 
+提供执行所有ONTAP工具任务所需的所有本机vCenter Server特权和ONTAP工具专用特权。
+
+
+
+ a| 
+VSC 只读
+ a| 
+提供对ONTAP工具的只读访问权限。这些用户无法执行任何受访问控制的ONTAP工具操作。
+
+
+
+ a| 
+VSC 配置
+ a| 
+提供配置存储所需的所有本机vCenter Server特权和ONTAP工具专用特权。您可以执行以下任务：
+
+* 创建新数据存储库
+* 销毁数据存储库
+* 查看有关存储功能配置文件的信息
+
+
+|===
+
+
+== 使用ONTAP工具标准角色的准则
+
+使用适用于 VMware vSphere 角色的标准 ONTAP 工具时，应遵循特定准则。
+
+您不应直接修改标准角色。如果这样做、ONTAP工具将在每次升级时覆盖您所做的更改。安装程序会在您每次升级ONTAP工具时更新标准角色定义。这样可以确保这些角色对于您的ONTAP工具版本以及所有受支持的vCenter Server版本都是最新的。
+
+但是，您可以使用标准角色创建根据您的环境量身定制的角色。要执行此操作、您应复制ONTAP工具标准角色、然后编辑复制的角色。通过创建新角色、即使重新启动或升级ONTAP工具Windows服务、您也可以保留此角色。
+
+您可以通过以下方式使用ONTAP工具标准角色：
+
+* 对所有ONTAP工具任务使用标准ONTAP工具角色。
++
+在这种情况下、标准角色提供了用户执行ONTAP工具任务所需的所有特权。
+
+* 合并角色以扩展用户可以执行的任务。
++
+如果标准ONTAP工具角色为您的环境提供的粒度过高、您可以通过创建包含多个角色的更高级别组来扩展角色。
+
++
+如果用户需要执行其他非ONTAP工具任务、而这些任务需要额外的本机vCenter Server特权、您也可以创建一个角色来提供这些特权、并将其添加到组中。
+
+* 创建更细化的角色。
++
+如果公司要求您实施比标准ONTAP工具角色限制性更强的角色、您可以使用ONTAP工具角色创建新角色。
+
++
+在这种情况下、您可以克隆必要的ONTAP工具角色、然后编辑克隆的角色、使其仅具有用户所需的权限。
+
+

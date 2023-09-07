@@ -1,0 +1,51 @@
+---
+permalink: deploy/reference_port_requirements_for_vsc.html 
+sidebar: sidebar 
+keywords: port requirements 
+summary: '默认情况下、ONTAP工具会使用指定端口来启用其组件(包括存储系统和VMware vCenter Server)之间的通信。如果启用了防火墙，则必须确保将防火墙设置为允许例外。' 
+---
+= ONTAP工具的端口要求
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+默认情况下、ONTAP工具会使用指定端口来启用其组件(包括存储系统和VMware vCenter Server)之间的通信。如果启用了防火墙，则必须确保将防火墙设置为允许例外。
+
+对于Windows以外的防火墙、您应手动授予对ONTAP工具使用的特定端口的访问权限。如果不授予对这些端口的访问权限，则会显示如下错误消息。
+
+`Unable to communicate with the server.`
+
+ONTAP 工具使用以下默认双向 TCP 端口：
+
+|===
+
+
+| * 默认端口号 * | * 问题描述 * 
+
+
+ a| 
+9083.
+ a| 
+启用后， VASA Provider 和 Storage Replication Adapter （ SRA ）均使用此端口与 vCenter Server 进行通信。要获取 TCP/IP 设置，也需要此端口。此端口用于下载VP支持包、访问Web-CLI用户界面以及控制从VMware到VP的通信路径。
+
+
+
+ a| 
+443
+ a| 
+根据凭据的配置方式， VMware vCenter Server 和存储系统会侦听此端口上的安全通信。此端口用于客户端-服务器通信架构。默认情况下、安全连接会启用443端口。此客户端可以是使用REST API的任何自动化客户端、它会启动与服务器的连接、并且端点会交换数据。
+
+
+
+ a| 
+8143.
+ a| 
+ONTAP工具会侦听此端口上的安全通信。此端口用于客户端-服务器通信架构。此客户端可以是使用REST API的任何自动化客户端、它会启动与服务器的连接、并且端点会交换数据。此端口可用于ONTAP工具服务和导出ONTAP工具服务器日志。register.html页面托管在此端口上。REST Swagger将在此端口上公开。
+
+|===
+
+NOTE: 在部署 ONTAP 工具之前，您应已启用 Internet 控制消息协议（ Internet Control Message Protocol ， ICMP ）。
+
+如果禁用ICMP、则ONTAP工具的初始配置将失败、并且ONTAP工具将无法在部署后启动ONTAP工具和VASA Provider服务。您必须在部署后手动启用ONTAP工具和VASA Provider服务。
