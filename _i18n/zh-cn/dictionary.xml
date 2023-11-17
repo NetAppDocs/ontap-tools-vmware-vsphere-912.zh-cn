@@ -157,7 +157,6 @@
   <block id="caeb76e03a32069563fffdb32d55954a" category="admonition">在 Site Recovery Manager （ SRM ）中，资源可以是资源池， ESXi 主机或 vSphere 集群。</block>
   <block id="8ac32f6a8aa36578bdfe17eaa1b09d09" category="list-text">登录到 vCenter Server ，然后单击 * 站点恢复 * &gt; * 站点 * 。</block>
   <block id="881a8180069b4ef6ce578dc05747c26c" category="list-text">在管理选项卡中，选择 * 资源映射 * 。</block>
-  <block id="3a51cbdda8b1a9e5c79cbbe920b9311d" category="list-text">单击 <block ref="40f23597e3247b9bac7d35bb74d1ef6a" category="inline-image-macro-rx" type="image"></block> 图标以创建新的资源映射。</block>
   <block id="ca61b18f56707ba483d313f4fd42d21b" category="paragraph">此时将显示创建资源映射向导。</block>
   <block id="20586b09df186411bee0e3968b2ef2dd" category="list-text">在创建资源映射向导中，执行以下操作：</block>
   <block id="32a6b23557bb5ddc3323c7e77b4b97a4" category="list-text">选择 * 自动为具有匹配名称的资源准备映射 * ，然后单击 * 下一步 * 。</block>
@@ -738,7 +737,6 @@ VP审核日志可以在文件_/opt/NetApp/vpserver/conf/log4j2.properties_中进
   <block id="b6b2c55f92e8e04471c740483e69a795" category="paragraph">可以增加或减小 NFS 数据存储库的大小，但对于 VMFS 数据存储库，只能增加其大小。使用自动增长和缩减选项的 FlexGroup 数据存储库也支持调整数据存储库大小。属于传统数据存储库的 FlexGroup 以及属于 VVOL 数据存储库的 FlexVol 卷不能缩减到低于现有大小，但最多可增长 120% 。在这些 FlexGroup 和 FlexVol 卷上启用默认快照。</block>
   <block id="1b837800f24f729eb8e73a102257c0bd" category="admonition">如果在 ONTAP 9.9.1 或更高版本中使用全 SAN 阵列（ ASA ）类型的存储平台，则只能创建 vmdk 大小大于 16 TB 的 VVOL 数据存储库。</block>
   <block id="0e6fc56cbe91d72cb03e33a904ae9ab3" category="list-text">在导航窗格中，选择包含数据存储库的数据中心。</block>
-  <block id="a15d1bf5dee929fddbf2e03ae0f830e9" category="list-text">右键单击数据存储库，然后选择 * NetApp ONTAP tools* &gt; * 分配 QoS" 。</block>
   <block id="425e99780c82b74f333dd7da3068f492" category="list-text">在调整大小对话框中，指定数据存储库的新大小，然后单击 * 确定 * 。</block>
   <block id="29b33d6a4971ded7e90ffb22fa8e685d" category="paragraph">您可以运行存储系统菜单中的 * 重新发现全部 * 选项来手动更新存储系统和信息板下的存储列表，或者等待下次计划的刷新。</block>
   <block id="37cb7cba8a11cb5f31e25fa717c59190" category="summary">您可以编辑现有 VMware 虚拟卷（ VVols ）数据存储库以更改默认存储功能配置文件。默认存储功能配置文件主要用于交换 VVol 。</block>
@@ -2136,7 +2134,6 @@ OpenSSL x509 -in OTV_ISO_cert.prom -pubkey -noot &gt; Ccs-prod-OTV-SRA TGZ.pub</
   <block id="bbf1057ad175e1e1664e224351019ac9" category="sidebar">NetApp 导入实用程序—视频</block>
   <block id="72393f9ef0b6b69526a30ac7ce5276bc" category="sidebar">NetApp 社区— ONTAP 工具</block>
   <block id="a80f3275e655b331da24a4073b9c6ed4" category="sidebar">适用于VMware vSphere 9.12的ONTAP 工具文档</block>
-  <block id="ed9018b2e8611a3d2c03bb6a205b9715" category="sidebar">适用于 VMware vSphere 的 ONTAP 工具</block>
   <block id="f724dfae8a2bb3b34e049dcedf88d10d" category="sidebar">保护数据存储库和虚拟机</block>
   <block id="754290325c2ec09a93b1e1ede0871001" category="sidebar">启用 Storage Replication Adapter 以保护数据存储库</block>
   <block id="30dcbadaeab2008f15a279a602f8b6e2" category="sidebar">配置用于灾难恢复的存储系统</block>
@@ -2170,4 +2167,7 @@ OpenSSL x509 -in OTV_ISO_cert.prom -pubkey -noot &gt; Ccs-prod-OTV-SRA TGZ.pub</
   <block id="f98484fc38c578aca640fd781e7196ae" category="sidebar">配置数据存储库</block>
   <block id="13b48cbdd252f4608b35c2d647aacc28" category="sidebar">部署和升级 ONTAP 工具</block>
   <block id="578d9149fa04c3d4f2229ad419fbfec3" category="sidebar">部署 ONTAP 工具的要求</block>
+  <block id="c482036287311326fe268e793e8592b0" category="inline-image-macro">新资源映射</block>
+  <block id="3f8ca314615f7ceccc4e80b9ecdd18e7" category="list-text">单击 <block ref="b0cd4e998161741b4ab585ccd5066812" category="inline-image-macro-rx" type="image"></block> 图标以创建新的资源映射。</block>
+  <block id="bdc5a4ba1115f3f724e1f81e7f41eeef" category="list-text">右键单击该数据存储库并选择* tools*&gt;*调整非NetApp ONTAP数据存储库大小*。</block>
 </blocks>
