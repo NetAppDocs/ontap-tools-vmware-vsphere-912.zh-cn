@@ -2170,4 +2170,10 @@ OpenSSL x509 -in OTV_ISO_cert.prom -pubkey -noot &gt; Ccs-prod-OTV-SRA TGZ.pub</
   <block id="c482036287311326fe268e793e8592b0" category="inline-image-macro">新资源映射</block>
   <block id="3f8ca314615f7ceccc4e80b9ecdd18e7" category="list-text">单击 <block ref="b0cd4e998161741b4ab585ccd5066812" category="inline-image-macro-rx" type="image"></block> 图标以创建新的资源映射。</block>
   <block id="bdc5a4ba1115f3f724e1f81e7f41eeef" category="list-text">右键单击该数据存储库并选择* tools*&gt;*调整非NetApp ONTAP数据存储库大小*。</block>
+  <block id="2d7ee85ca6eba61e2ebc56fcd9749a22" category="section-title">MetroCluster 配置和SRA</block>
+  <block id="700f785cc3b0c94782ea099d30974628" category="paragraph">Storage Replication Adapter (SRA)支持使用采用NFS、iSCSI和FCP协议的MetroCluster配置(MCC)的环境。</block>
+  <block id="b0cf503432f798961e23d246f3541857" category="paragraph">作为MCC SRA配置的前提条件、所有Storage Virtual Machine (SVM)名称在MCC集群上都应是唯一的。如果名称不唯一、则会导致冲突、并且SRA工作流将失败。</block>
+  <block id="a3a5ab624299236efd1aa00751d3e9d9" category="paragraph">所需操作：</block>
+  <block id="9a5bef2e6baedf8812a9649b615baf1a" category="list-text">在执行MCC切换或切回后、请确保源集群上的_SnapMirror list-目的地_命令使用新的&lt;vserver_name&gt;名称(SVM -MC)显示正确的输出。此命令可能需要长达30分钟才能运行。</block>
+  <block id="44a62aa72367cca25b9e3f92da55ace0" category="list-text">请先从SRM UI执行发现设备操作、然后再继续执行其他SRA工作流。此操作可确保SRM了解切换或切回后SVM名称发生的更改。</block>
 </blocks>
